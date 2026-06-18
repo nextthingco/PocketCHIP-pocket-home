@@ -1,10 +1,13 @@
 #!/usr/bin/make -f
 
-DPKG_EXPORT_BUILDFLAGS = 1
-include /usr/share/dpkg/default.mk
-
+# Built NATIVELY -- build.sh runs dpkg-buildpackage inside an armhf container, so
+# there is no cross-compiler override (the old rules forced
+# CXX=arm-linux-gnueabihf-g++, which clashes with the native build).
 %:
-	TARGET_ARCH=-march=armv7 \
-	CXX=arm-linux-gnueabihf-g++ \
-	LD_FLAGS="-L/usr/lib/arm-linux-gnueabihf -lxcb -lXau -lXdmcp -lpng -lz" \
-	dh $@ --parallel
+	dh $@
+
+# The Projucer Makefile builds into build/Release/ and has no install or test
+# target; debian/install places the binary + assets, so skip the auto steps.
+override_dh_auto_install:
+
+override_dh_auto_test:

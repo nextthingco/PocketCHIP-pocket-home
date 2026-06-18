@@ -7,27 +7,27 @@
         {
           "name": "Terminal",
           "icon": "appIcons/terminal.png",
-          "shell": "vala-terminal -fs 8 -g 20 20"
+          "shell": "lxterminal"
         },
         {
-          "name": "Play PICO-8",
-          "icon": "appIcons/pico8.png",
-          "shell": "pico8"
+          "name": "Play TIC-80",
+          "icon": "appIcons/tic80.png",
+          "shell": "tic80"
         },
         {
           "name": "Make Music",
           "icon": "appIcons/musicsequencer.png",
-          "shell": "sunvox"
+          "shell": "goattracker"
          },
          {
           "name": "Get Help",
           "icon": "appIcons/help.png",
-          "shell": "surf /usr/share/pocketchip-localdoc/index.html"
+          "shell": "surf https://www.reddit.com/r/ChipCommunity/"
         },
         {
           "name": "Write",
           "icon": "appIcons/texteditor.png",
-          "shell": "leafpad"
+          "shell": "l3afpad"
         },
         {
           "name": "Browse Files",

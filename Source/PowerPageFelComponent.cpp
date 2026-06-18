@@ -8,10 +8,12 @@
 #include <fcntl.h>
 
 #include <numeric>
+#include <cstdint>   // uint8_t (no longer pulled in transitively under gcc-14)
 
 #if JUCE_LINUX
 
 #include <linux/i2c-dev.h>
+#include <i2c/smbus.h>   // i2c_smbus_*: moved out of <linux/i2c-dev.h> into libi2c
 
 int i2c_dev_open( const char* i2cdev, uint8_t address ) {
     int file;

@@ -1,3 +1,17 @@
+pocket-home (0.0.8) trixie; urgency=low
+
+  * Port to build on Debian trixie. WifiStatusNM rewritten from libnm-glib
+    (removed from trixie) to nmcli for read-only status (polled, drives the wifi
+    icon) + nmtui for all configuration; drops the libnm-glib build/runtime deps.
+  * debian/rules: build NATIVELY (build.sh runs us in an armhf container) instead
+    of forcing CXX=arm-linux-gnueabihf-g++; skip the non-existent auto install/
+    test targets (debian/install handles file placement).
+  * debian/control: debhelper compat 13, drop libnm-glib-dev/network-manager-dev/
+    libnm-glib4, add libasound2-dev + libxext-dev; depend on network-manager +
+    x-terminal-emulator (for nmtui).
+
+ -- Ben Young <computermouth@proton.me>  Thu, 18 Jun 2026 05:00:00 -0500
+
 pocket-home (0.0.7) unstable; urgency=low
 
   * Introduces scaleable layout, fixes multiple pages of apps
