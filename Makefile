@@ -20,8 +20,15 @@ export PKG_CONFIG_LDFLAGS=$(foreach pkg, $(PKG_CONFIG_PACKAGES), $(shell $(PKG_C
 # `mkdir -p` of build/intermediate -> intermittent
 # "fatal error: opening dependency file ...: No such file or directory".
 # Command-line vars override the sub-Makefile's `:=`, so this kills the race.
+#
+# TARGET_ARCH overrides the Projucer Makefile's `-march=native` default (it only
+# sets that `ifeq ($(TARGET_ARCH),)`, so a non-empty value here wins). `native`
+# is poison: in the emulated arm/v7 build container gcc mis-detects the CPU and
+# emits instructions (VFPv4 vfma etc.) the CHIP's Cortex-A8 lacks -> the binary
+# links fine but dies with "Illegal instruction" (SIGILL) on first run. The R8 is
+# always a Cortex-A8 (ARMv7-A + NEON, VFPv3), so target it exactly.
 all:
-	cd Builds/LinuxMakefile && $(MAKE) DEPFLAGS=
+	cd Builds/LinuxMakefile && $(MAKE) DEPFLAGS= TARGET_ARCH='-mcpu=cortex-a8 -mfpu=neon -mfloat-abi=hard'
 
 clean:
 	cd Builds/LinuxMakefile && $(MAKE) clean
