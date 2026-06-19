@@ -13,7 +13,12 @@
 #if JUCE_LINUX
 
 #include <linux/i2c-dev.h>
-#include <i2c/smbus.h>   // i2c_smbus_*: moved out of <linux/i2c-dev.h> into libi2c
+// i2c_smbus_*: moved out of <linux/i2c-dev.h> into libi2c. Debian's
+// <i2c/smbus.h> has no extern "C" guard, so without this wrapper the calls
+// get C++-mangled and don't resolve against libi2c's C symbols at link time.
+extern "C" {
+#include <i2c/smbus.h>
+}
 
 int i2c_dev_open( const char* i2cdev, uint8_t address ) {
     int file;

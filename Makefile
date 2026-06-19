@@ -14,8 +14,14 @@ export PKG_CONFIG_LDFLAGS=$(foreach pkg, $(PKG_CONFIG_PACKAGES), $(shell $(PKG_C
 
 
 
+# DEPFLAGS= disables the Projucer Makefile's -MMD dependency generation. We
+# always build from a clean tree (fresh container / dpkg clean), so the per-TU
+# .d files buy nothing, and under parallel make (-jN) they race the per-rule
+# `mkdir -p` of build/intermediate -> intermittent
+# "fatal error: opening dependency file ...: No such file or directory".
+# Command-line vars override the sub-Makefile's `:=`, so this kills the race.
 all:
-	cd Builds/LinuxMakefile && $(MAKE)
+	cd Builds/LinuxMakefile && $(MAKE) DEPFLAGS=
 
 clean:
 	cd Builds/LinuxMakefile && $(MAKE) clean

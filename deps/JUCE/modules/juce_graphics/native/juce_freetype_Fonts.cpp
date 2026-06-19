@@ -348,8 +348,12 @@ private:
     bool getGlyphShape (Path& destShape, const FT_Outline& outline, const float scaleX)
     {
         const float scaleY = -scaleX;
-        const short* const contours = outline.contours;
-        const char* const tags = outline.tags;
+        // FreeType in trixie declares these as unsigned short*/unsigned char*;
+        // JUCE 4.1 hardcoded signed types -> gcc-14 rejects the conversion.
+        // auto adopts the real member types (only used for indexing + the
+        // FT_CURVE_TAG bit-mask, so signedness is irrelevant).
+        const auto* const contours = outline.contours;
+        const auto* const tags = outline.tags;
         const FT_Vector* const points = outline.points;
 
         for (int c = 0; c < outline.n_contours; ++c)
