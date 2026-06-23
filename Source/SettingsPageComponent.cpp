@@ -280,8 +280,6 @@ SettingsPageComponent::SettingsPageComponent() {
 
   addAndMakeVisible(screenBrightnessSlider);
   addAndMakeVisible(volumeSlider);
-
-  wifiPage = new SettingsPageWifiComponent();
 }
 
 SettingsPageComponent::~SettingsPageComponent() {}
@@ -328,8 +326,15 @@ void SettingsPageComponent::buttonClicked(Button *button) {
   if (button == backButton) {
     getMainStack().popPage(PageStackComponent::kTransitionTranslateHorizontal);
   } else if (button == wifiCategoryItem->button) {
-    wifiPage->updateAccessPoints();
-    getMainStack().pushPage(wifiPage, PageStackComponent::kTransitionTranslateHorizontal);
+    // Launch the configured wifi tool (a terminal running nmtui) instead of the
+    // old in-app network list. JUCE's ChildProcess does not kill the child on
+    // destruction, so the terminal keeps running after this local goes out of scope.
+    ChildProcess wifiTool;
+    if (wifiTool.start(getWifiCommand())) {
+      // Same launch spinner the home-screen apps show; auto-hidden when the
+      // terminal takes the active window (MainContentComponent::handleMainWindowInactive).
+      getMainContentComponent().showLaunchSpinner();
+    }
   }
 }
 

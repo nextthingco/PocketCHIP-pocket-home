@@ -109,8 +109,6 @@ public:
   ScopedPointer<Component> mainPage;
   ScopedPointer<WifiCategoryItemComponent> wifiCategoryItem;
 
-  ScopedPointer<SettingsPageWifiComponent> wifiPage;
-
   StretchableLayoutManager verticalLayout;
 
   SettingsPageComponent();

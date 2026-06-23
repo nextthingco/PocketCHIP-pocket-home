@@ -9,6 +9,14 @@ pocket-home (0.0.8) trixie; urgency=low
   * debian/control: debhelper compat 13, drop libnm-glib-dev/network-manager-dev/
     libnm-glib4, add libasound2-dev + libxext-dev; depend on network-manager +
     x-terminal-emulator (for nmtui).
+  * Settings page: the wifi button (showing the connected SSID) now launches a
+    terminal running nmtui instead of opening the removed in-app network list. The
+    command is configurable via config.json "wifiCommand" (default
+    "lxterminal -e nmtui"). The wifi row keeps only the on/off toggle + SSID label;
+    the home-screen wifi corner icon stays a display-only signal indicator.
+  * Pressing the wifi button shows the same launch spinner the home-screen apps
+    use. The spinner moved from LauncherComponent up to MainContentComponent (the
+    top-level overlay layer) so it renders over any page, not just the app menu.
 
  -- Ben Young <computermouth@proton.me>  Thu, 18 Jun 2026 05:00:00 -0500
 

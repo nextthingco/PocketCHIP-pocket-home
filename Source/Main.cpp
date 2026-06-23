@@ -33,6 +33,10 @@ WifiStatus &getWifiStatus() {
   return *PokeLaunchApplication::get()->wifiStatus;
 }
 
+String getWifiCommand() {
+  return PokeLaunchApplication::get()->wifiCommand;
+}
+
 BluetoothStatus &getBluetoothStatus() {
   return PokeLaunchApplication::get()->bluetoothStatus;
 }
@@ -166,6 +170,12 @@ void PokeLaunchApplication::initialise(const String &commandLine) {
     std::cerr << "Could not parse config file: " << configFile.getFullPathName() << std::endl;
     quit();
   }
+
+  // Command the settings-page wifi button launches (a terminal running nmtui).
+  // The in-app wifi network list was removed; nmtui handles selection instead.
+  wifiCommand = configJson["wifiCommand"].toString();
+  if (wifiCommand.isEmpty())
+    wifiCommand = "lxterminal -e nmtui";
 
   // open sound handle
 

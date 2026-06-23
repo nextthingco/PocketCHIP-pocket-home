@@ -9,18 +9,6 @@
 class LauncherComponent;
 class AppsPageComponent;
 
-class LaunchSpinnerTimer : public Timer {
-public:
-    LaunchSpinnerTimer() {};
-    void timerCallback();
-  
-    LauncherComponent* launcherComponent;
-  
-    int i = 0;
-    int t = 0;
-    int timeout = 30 * 1000;
-};
-
 class BatteryIconTimer : public Timer {
 public:
     BatteryIconTimer() {};
@@ -40,14 +28,11 @@ public:
     BatteryMonitor batteryMonitor;
     ScopedPointer<LauncherBarComponent> botButtons;
     ScopedPointer<LauncherBarComponent> topButtons;
-    ScopedPointer<ImageComponent> launchSpinner;
-  
-    Array<Image> launchSpinnerImages;
+
     Array<Image> batteryIconImages;
     Array<Image> batteryIconChargingImages;
     Array<Image> wifiIconImages;
-  
-    LaunchSpinnerTimer launchSpinnerTimer;
+
     BatteryIconTimer batteryIconTimer;
     WifiIconTimer wifiIconTimer;
     Component* defaultPage;
@@ -67,10 +52,7 @@ public:
     
     void paint(Graphics &) override;
     void resized() override;
-  
-    void showLaunchSpinner();
-    void hideLaunchSpinner();
-  
+
 private:
     Colour bgColor;
     Image bgImage;

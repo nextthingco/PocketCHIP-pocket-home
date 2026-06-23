@@ -20,6 +20,7 @@ struct BluetoothStatus {
 
 PageStackComponent &getMainStack();
 WifiStatus &getWifiStatus();
+String getWifiCommand();
 BluetoothStatus &getBluetoothStatus();
 ImageComponent &getMainButtonPopup();
 MainContentComponent &getMainContentComponent();
@@ -35,6 +36,10 @@ public:
 
   WifiStatusJson wifiStatusJson;
   WifiStatus *wifiStatus;
+
+  // Command launched by the settings-page wifi button (a terminal running nmtui);
+  // read from config.json's "wifiCommand". See getWifiCommand().
+  String wifiCommand;
 
   BluetoothStatus bluetoothStatus;
 

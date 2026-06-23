@@ -1,5 +1,6 @@
 {
   "defaultPage" : "Apps",
+  "wifiCommand" : "lxterminal -e nmtui",
   "pages": [
     {
       "name": "Apps",

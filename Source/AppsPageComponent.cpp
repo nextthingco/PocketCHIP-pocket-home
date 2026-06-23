@@ -196,7 +196,7 @@ void AppsPageComponent::startApp(AppIconButton* appButton) {
     
     // TODO: should probably put app button clicking logic up into LauncherComponent
     // correct level for event handling needs more thought
-    launcherComponent->showLaunchSpinner();
+    getMainContentComponent().showLaunchSpinner();
   }
 };
 
@@ -257,7 +257,7 @@ void AppsPageComponent::checkRunningApps() {
   if (!runningApps.size()) {
     // FIXME: uncomment when process running check works
     // runningCheckTimer.stopTimer();
-    launcherComponent->hideLaunchSpinner();
+    getMainContentComponent().hideLaunchSpinner();
   }
 };
 
